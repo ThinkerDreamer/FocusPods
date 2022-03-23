@@ -1,18 +1,9 @@
-// Import the functions you need from the SDKs you need
+console.log("pre-import");
+//Import the functions you need from the SDKs you need
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
-import {
-    child,
-    get,
-    getDatabase,
-    onValue,
-    ref,
-    set
-} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
-import {
-    getAuth,
-    createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js";
-
+import {child, get, getDatabase, onValue, ref, set} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
+// import {getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js";
+console.log("done importing FireBase Database")
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -31,9 +22,9 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 // Get a reference to the database service
 const database = getDatabase(firebaseApp, firebaseConfig.databaseURL);
-const auth = getAuth();
+// const auth = getAuth();
 
-
+console.log("done initializing Firebase");
 
 // My personal functions
 function writeData(person, focusParam) {
@@ -113,24 +104,35 @@ function alertIfFocused(name) {
 }
 const themeButton = document.querySelector("#themeButton");
 const modes = {
-    bright: "Bright",
+    dark: "Dark",
     pastel: "Pastel"
 }
 
 let currentMode = modes.pastel;
-if (themeButton) {
-    themeButton.textContent = "Bright mode";
-    console.log("Current mode: " + currentMode);
 
     themeButton.addEventListener("click", function(){
             themeButton.textContent = `${currentMode} mode`;
-            currentMode = themeButton.textContent.toLowerCase() === `bright mode`
+            currentMode = (themeButton.textContent === `Dark mode`)
                 ? modes.pastel
-                : modes.bright;
+                : modes.dark;
             const backgroundColor = `var(--${currentMode}-rainbow-gradient)`;
             document.body.style.setProperty("--background-gradient", backgroundColor);
+            const mainEl = document.querySelector("main");
+            console.log(mainEl);
+            if (currentMode === "Dark") {
+                mainEl.style.background = "#999";
+                console.log("Dark mode enabled");
+            } else {
+                mainEl.style.background = "var(--Blue-green-gradient)";
+                console.log("Pastel mode enabled");
+            }
+
+            
+            // if (currentMode === modes.bright) {
+            //     console.log("Bright mode, setting button background color");
+            //     document.querySelector("button").style.backgroundColor= "var(--Pastel-background-gradient-flipped)";
+            // }
         });
-}
 // const signUpButton = document.querySelector("#signUp");
 
 // signUpButton.addEventListener("click", function () {

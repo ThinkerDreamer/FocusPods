@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Angel & Luca Focus</title>
-    <link rel="stylesheet" href="main.css"/>
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta charset="utf-8"/>
-</head>
-<body>
-    <h1>Are you in Focus Mode?</h1>
-<aside class="theme-button">
-    <button id="themeButton">Change the theme</button>
-</aside>
-    <div class="item">
-            <article class="angel">
-                <h4>Angel</h4>
-                Current state:
-                <p id="angelState"></p>
-                <button id="angelButton">Focus</button>
-            </article>
-            <article class="luca">
-                <h4>Luca</h4>
-                Current state:
-                <p id="lucaState"></p>
-                <button id="lucaButton">Focus</button>
-            </article>
-    </div>
-    <script src="main.js"></script>
-</body>
-</html>
+    <head>
+        <title>Angel & Luca Focus</title>
+        <link rel="stylesheet" href="main.css"/>
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <main>
+            <h1>Are you in Focus Mode?</h1>
+            <div class="users-container">
+                <div class="angel">
+                    <h2>Angel</h2>
+                    <p>Current state: <span id="angelState"></span></p>
+                    <button class="focus-button" id="angelButton">Focus</button>
+                </div>
+                <div class="luca">
+                    <h2>Luca</h2>
+                    <p>Current state: <span id="lucaState"></span></p>
+                    <button class="focus-button" id="lucaButton">Focus</button>
+                </div>
+            </div> <!-- /users-container -->
+            <hr>
+            <div class="theme-btn-div">
+                <button class="theme-btn" id="themeButton">Change the theme</button>
+            </div>
+        </main>
+        <script type="module" src="main.js"></script>
+    </body>
+    </html>

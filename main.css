@@ -37,28 +37,15 @@ blockquote, q {
 
 :root {
     --background-gradient: var(--Pastel-rainbow-gradient);
-    --Bright-rainbow-gradient: #9e00ff linear-gradient(to left,
-    rgba(255, 0, 0, 1) 0%,
-    rgba(255, 95, 0, 1) 8%,
-    rgba(255, 158, 0, 1) 14%,
-    rgba(255, 187, 0, 1) 20%,
-    rgba(255, 212, 0, 1) 27%,
-    rgba(255, 236, 0, 1) 32%,
-    rgba(203, 245, 3, 1) 35%,
-    rgba(151, 254, 5, 1) 39%,
-    rgba(46, 255, 9, 1) 44%,
-    rgba(18, 255, 109, 1) 48%,
-    rgba(0, 255, 175, 1) 54%,
-    rgba(2, 255, 252, 1) 59%,
-    rgba(2, 245, 251, 1) 62%,
-    rgba(1, 216, 249, 1) 65%,
-    rgba(0, 187, 246, 1) 69%,
-    rgba(0, 148, 246, 1) 72%,
-    rgba(0, 64, 247, 1) 78%,
-    rgba(0, 13, 247, 1) 83%,
-    rgba(93, 5, 252, 1) 91%,
-    rgba(158, 0, 255, 1) 100%) no-repeat;
-    --Pastel-rainbow-gradient: linear-gradient(to left, #dff7bd, #40f2ec, #add2ed, #ffb2ff);
+    --Dark-rainbow-gradient: #333;
+    --lushboypink: #FFB2FF;
+    --lushboyfoggy: #ADD2ED;
+    --lushboyturquoise: #40F2EC;
+    --lushboylemon: #DFF7BD;
+    --Pastel-rainbow-gradient: linear-gradient(to left, var(--lushboylemon), var(--lushboyturquoise), var(--lushboyfoggy), var(--lushboypink));
+    --Pastel-rainbow-gradient-flipped: linear-gradient(to right, var(--lushboylemon), var(--lushboyturquoise), var(--lushboyfoggy), var(--lushboypink));
+    --Blue-green-gradient: linear-gradient(90deg, hsla(145, 83%, 74%, 1) 0%, hsla(204, 77%, 76%, 1) 100%);
+    --Grey-gradient: url("gradient.png") ;
 }
 
 html {
@@ -66,42 +53,65 @@ html {
 }
 
 body {
-    height: 100%;
     background: var(--background-gradient);
+    margin-top: 75px;
     font-family: "Montserrat", sans-serif;
-    display: flex;
-    flex-flow: column wrap;
-    margin: 0;
+    font-size: 20px;
+    color: #424b54;
 }
 
-.theme-button {
-    justify-content: flex-end;
-    text-transform: uppercase;
+main {
+    padding: 10px;
+    background: var(--Blue-green-gradient);
+    margin: 0 auto;
+    width: 500px;
+    border-radius: 3%;
 }
 
 h1 {
-    width: fit-content;
-    padding-top: 15px;
-
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin: 0 auto;
+    text-align: center;
 }
 
-h4 {
-    margin-top: 0;
+h2 {
+    font-weight: normal;
 }
 
-.lushboypink      {color:#FFB2FF;}
-.lushboyfoggy     {color:#ADD2ED;}
-.lushboyturquoise {color:#40F2EC;}
-.lushboylemon     {color:#DFF7BD;}
+button {
+    border-style: none;
+    text-align: center;
+    padding: 7px 15px;
+    background-color: #EDFBFD;
+    /* background-color: var(--background-gradient); */
+    font-size: 20px;
+}
+
+button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+button:focus:not(:-moz-focusring) {
+    outline: none;
+}
+
+.theme-btn-div {
+    display: flex;
+    justify-content: center;
+}
+
+.theme-btn {
+    text-align: center;
+    font-size: 15px;
+}
 
 .angel, .luca {
 
     display: flex;
-    /*grid-template-columns: 1fr 1fr 3fr;*/
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    border: ivory dashed thin;
     margin: 5px auto;
     position: relative;
     padding: 0 0 5px 5px;
@@ -109,10 +119,10 @@ h4 {
 }
 
 .angel {
-    grid-column-start: 1;
+
 }
 .luca {
-    grid-column-start: 2;
+
 }
 
 #lucaState, #angelState {
@@ -121,18 +131,14 @@ h4 {
 
 
 #angelButton, #lucaButton {
-    max-width: 100%;
 }
 
-@media screen and (min-width:901px) {
+/* @media screen and (min-width:901px) {
     .item {
         width: 30%;
     }
-    #angelButton, #lucaButton {
-        max-width: 100%;
-        /*font-size: 1.5vw;*/
-    }
-}
+
+} */
 @media screen and (max-width: 900px) {
     .item {
         width: 50%;
