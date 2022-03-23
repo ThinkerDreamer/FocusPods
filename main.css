@@ -37,6 +37,7 @@ blockquote, q {
 
 :root {
     --background-gradient: var(--Pastel-rainbow-gradient);
+    --Dark-rainbow-gradient: #333;
     --Pastel-rainbow-gradient: linear-gradient(to left, #DFF7BD, #40F2EC, #ADD2ED, #FFB2FF);
     --Blue-green-gradient: linear-gradient(90deg, hsla(145, 83%, 74%, 1) 0%, hsla(204, 77%, 76%, 1) 100%);
     --Dark-mode-gradient:  linear-gradient(45deg, hsla(216, 100%, 56%, 1) 9%,

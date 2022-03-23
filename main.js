@@ -118,7 +118,6 @@ let currentMode = modes.pastel;
             const backgroundColor = `var(--${currentMode}-rainbow-gradient)`;
             document.body.style.setProperty("--background-gradient", backgroundColor);
             const mainEl = document.querySelector("main");
-            console.log(mainEl);
             if (currentMode === "Dark") {
                 mainEl.style.background = "var(--Dark-mode-gradient)";
                 console.log("Dark mode enabled");
