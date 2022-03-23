@@ -37,15 +37,14 @@ blockquote, q {
 
 :root {
     --background-gradient: var(--Pastel-rainbow-gradient);
-    --Dark-rainbow-gradient: #333;
-    --lushboypink: #FFB2FF;
-    --lushboyfoggy: #ADD2ED;
-    --lushboyturquoise: #40F2EC;
-    --lushboylemon: #DFF7BD;
-    --Pastel-rainbow-gradient: linear-gradient(to left, var(--lushboylemon), var(--lushboyturquoise), var(--lushboyfoggy), var(--lushboypink));
-    --Pastel-rainbow-gradient-flipped: linear-gradient(to right, var(--lushboylemon), var(--lushboyturquoise), var(--lushboyfoggy), var(--lushboypink));
+    --Pastel-rainbow-gradient: linear-gradient(to left, #DFF7BD, #40F2EC, #ADD2ED, #FFB2FF);
     --Blue-green-gradient: linear-gradient(90deg, hsla(145, 83%, 74%, 1) 0%, hsla(204, 77%, 76%, 1) 100%);
-    --Grey-gradient: url("gradient.png") ;
+    --Dark-mode-gradient:  linear-gradient(45deg, hsla(216, 100%, 56%, 1) 9%,
+    hsla(206, 98%, 60%, 1) 24%,
+    hsla(201, 97%, 62%, 1) 41%,
+    hsla(204, 92%, 66%, 1) 58%,
+    hsla(217, 85%, 69%, 0.9) 77%,
+    hsla(256, 75%, 68%, 1) 92%);
 }
 
 html {

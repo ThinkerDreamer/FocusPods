@@ -120,7 +120,7 @@ let currentMode = modes.pastel;
             const mainEl = document.querySelector("main");
             console.log(mainEl);
             if (currentMode === "Dark") {
-                mainEl.style.background = "#999";
+                mainEl.style.background = "var(--Dark-mode-gradient)";
                 console.log("Dark mode enabled");
             } else {
                 mainEl.style.background = "var(--Blue-green-gradient)";
