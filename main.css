@@ -35,9 +35,6 @@ blockquote, q {
     quotes: none;
 }
 
-html {
-    height: 100%;
-}
 :root {
     --background-gradient: var(--Pastel-rainbow-gradient);
     --Bright-rainbow-gradient: #9e00ff linear-gradient(to left,
@@ -62,6 +59,10 @@ html {
     rgba(93, 5, 252, 1) 91%,
     rgba(158, 0, 255, 1) 100%) no-repeat;
     --Pastel-rainbow-gradient: linear-gradient(to left, #dff7bd, #40f2ec, #add2ed, #ffb2ff);
+}
+
+html {
+    height: 100%;
 }
 
 body {

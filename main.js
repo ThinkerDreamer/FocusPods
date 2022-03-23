@@ -131,33 +131,33 @@ if (themeButton) {
             document.body.style.setProperty("--background-gradient", backgroundColor);
         });
 }
-const signUpButton = document.querySelector("#signUp");
+// const signUpButton = document.querySelector("#signUp");
 
-signUpButton.addEventListener("click", function () {
-    alert("signUpButton clicked");
+// signUpButton.addEventListener("click", function () {
+//     alert("signUpButton clicked");
 
-    let email = document.querySelector("#email").value;
-    let password = document.querySelector("#password").value;
-    let name = document.querySelector("#name").value;
+//     let email = document.querySelector("#email").value;
+//     let password = document.querySelector("#password").value;
+//     let name = document.querySelector("#name").value;
 
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            set(ref(database, "users/" + user.uid),{
-                email: email,
-                name: name
-            })
-            alert("user created");
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            alert(errorMessage);
-            // ..
-        });
-})
+//     createUserWithEmailAndPassword(auth, email, password)
+//         .then((userCredential) => {
+//             // Signed in
+//             const user = userCredential.user;
+//             set(ref(database, "users/" + user.uid),{
+//                 email: email,
+//                 name: name
+//             })
+//             alert("user created");
+//             // ...
+//         })
+//         .catch((error) => {
+//             const errorCode = error.code;
+//             const errorMessage = error.message;
+//             alert(errorMessage);
+//             // ..
+//         });
+// })
 
 readValue("luca");
 readValue("angel");
