@@ -1,7 +1,17 @@
+/* 
+have pods (groups of users who want to share their focus state with each other)
+in each pod, each user has a to-do list
+there's a button to flip between focusing and not
+each user in the pod can see everyone else in the pod's focus state and to-do list
+
+each pod has its own unique URL
+*/
+
+
 console.log("pre-import");
 //Import the functions you need from the SDKs you need
-import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
-import {child, get, getDatabase, onValue, ref, set} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+import { child, get, getDatabase, onValue, ref, set } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 // import {getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js";
 console.log("done importing FireBase Database")
 
@@ -54,7 +64,7 @@ function getData(person) {
             alert("No data found");
         }
     })
-        .catch((error)=>{
+        .catch((error) => {
             //alert(`getData error, focusValue = ${focusValue}`);
             alert("Unsuccessful. Error: " + error);
         })
@@ -88,19 +98,19 @@ function getFocusState(name) {
 }
 
 function alertIfFocused(name) {
-        console.log("alertIfFocused was called and name=", name);
-        if (getFocusState(name)) {
-            console.log("alertIfFocused was triggered and person is not focused");
-            if (name === 'angel' && getFocusState('luca')) {
-                    alert("Luca is now focusing.");
-                }
-            } else if (name === 'luca') {
-                if (getFocusState('angel')) {
-                    alert("Angel is now focusing.");
-                }
-            } else {
-            console.log("alertIfFocused was called but getFocusState was false");
+    console.log("alertIfFocused was called and name=", name);
+    if (getFocusState(name)) {
+        console.log("alertIfFocused was triggered and person is not focused");
+        if (name === 'angel' && getFocusState('luca')) {
+            alert("Luca is now focusing.");
         }
+    } else if (name === 'luca') {
+        if (getFocusState('angel')) {
+            alert("Angel is now focusing.");
+        }
+    } else {
+        console.log("alertIfFocused was called but getFocusState was false");
+    }
 }
 const themeButton = document.querySelector("#themeButton");
 const modes = {
@@ -110,28 +120,28 @@ const modes = {
 
 let currentMode = modes.pastel;
 
-    themeButton.addEventListener("click", function(){
-            themeButton.textContent = `${currentMode} mode`;
-            currentMode = (themeButton.textContent === `Dark mode`)
-                ? modes.pastel
-                : modes.dark;
-            const backgroundColor = `var(--${currentMode}-rainbow-gradient)`;
-            document.body.style.setProperty("--background-gradient", backgroundColor);
-            const mainEl = document.querySelector("main");
-            if (currentMode === "Dark") {
-                mainEl.style.background = "var(--Dark-mode-gradient)";
-                console.log("Dark mode enabled");
-            } else {
-                mainEl.style.background = "var(--Blue-green-gradient)";
-                console.log("Pastel mode enabled");
-            }
+themeButton.addEventListener("click", function() {
+    themeButton.textContent = `${currentMode} mode`;
+    currentMode = (themeButton.textContent === `Dark mode`)
+        ? modes.pastel
+        : modes.dark;
+    const backgroundColor = `var(--${currentMode}-rainbow-gradient)`;
+    document.body.style.setProperty("--background-gradient", backgroundColor);
+    const mainEl = document.querySelector("main");
+    if (currentMode === "Dark") {
+        mainEl.style.background = "var(--Dark-mode-gradient)";
+        console.log("Dark mode enabled");
+    } else {
+        mainEl.style.background = "var(--Blue-green-gradient)";
+        console.log("Pastel mode enabled");
+    }
 
-            
-            // if (currentMode === modes.bright) {
-            //     console.log("Bright mode, setting button background color");
-            //     document.querySelector("button").style.backgroundColor= "var(--Pastel-background-gradient-flipped)";
-            // }
-        });
+
+    // if (currentMode === modes.bright) {
+    //     console.log("Bright mode, setting button background color");
+    //     document.querySelector("button").style.backgroundColor= "var(--Pastel-background-gradient-flipped)";
+    // }
+});
 // const signUpButton = document.querySelector("#signUp");
 
 // signUpButton.addEventListener("click", function () {
@@ -164,5 +174,5 @@ readValue("luca");
 readValue("angel");
 const angelButton = document.querySelector("#angelButton");
 const lucaButton = document.querySelector("#lucaButton");
-angelButton.addEventListener("click", function () {getData("angel")});
-lucaButton.addEventListener("click", function () {getData("luca")});
+angelButton.addEventListener("click", function() { getData("angel") });
+lucaButton.addEventListener("click", function() { getData("luca") });
