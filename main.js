@@ -1,10 +1,17 @@
 /* 
 have pods (groups of users who want to share their focus state with each other)
-in each pod, each user has a to-do list
+ --HTML element for sharing
+ --redirect
+ --first only ppl w/acct
+
+ -- BACK BURNER in each pod, each user has a to-do list
+ 
 there's a button to flip between focusing and not
 each user in the pod can see everyone else in the pod's focus state and to-do list
 
 each pod has its own unique URL
+-- login (firebase authz and auth)
+-- make unique URLs
 */
 
 
@@ -98,9 +105,9 @@ function getFocusState(name) {
 }
 
 function alertIfFocused(name) {
-    console.log("alertIfFocused was called and name=", name);
+    //console.log("alertIfFocused was called and name=", name);
     if (getFocusState(name)) {
-        console.log("alertIfFocused was triggered and person is not focused");
+        //console.log("alertIfFocused was triggered and person is not focused");
         if (name === 'angel' && getFocusState('luca')) {
             alert("Luca is now focusing.");
         }
@@ -109,7 +116,7 @@ function alertIfFocused(name) {
             alert("Angel is now focusing.");
         }
     } else {
-        console.log("alertIfFocused was called but getFocusState was false");
+        //console.log("alertIfFocused was called but getFocusState was false");
     }
 }
 const themeButton = document.querySelector("#themeButton");
@@ -120,7 +127,7 @@ const modes = {
 
 let currentMode = modes.pastel;
 
-themeButton.addEventListener("click", function() {
+themeButton.addEventListener("click", function () {
     themeButton.textContent = `${currentMode} mode`;
     currentMode = (themeButton.textContent === `Dark mode`)
         ? modes.pastel
@@ -174,5 +181,5 @@ readValue("luca");
 readValue("angel");
 const angelButton = document.querySelector("#angelButton");
 const lucaButton = document.querySelector("#lucaButton");
-angelButton.addEventListener("click", function() { getData("angel") });
-lucaButton.addEventListener("click", function() { getData("luca") });
+angelButton.addEventListener("click", function () { getData("angel") });
+lucaButton.addEventListener("click", function () { getData("luca") });
