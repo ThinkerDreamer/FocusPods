@@ -3,134 +3,224 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 5px;
-    border: 0;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 5px;
+  border: 0;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-    display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-    line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-    list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-    quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
 
 :root {
-    --background-gradient: var(--Pastel-rainbow-gradient);
-    --Dark-rainbow-gradient: #333;
-    --Pastel-rainbow-gradient: linear-gradient(to left, #DFF7BD, #40F2EC, #ADD2ED, #FFB2FF);
-    --Blue-green-gradient: linear-gradient(90deg, hsla(145, 83%, 74%, 1) 0%, hsla(204, 77%, 76%, 1) 100%);
-    --Dark-mode-gradient:  linear-gradient(45deg, hsla(216, 100%, 56%, 1) 9%,
+  --background-gradient: var(--Pastel-rainbow-gradient);
+  --Dark-rainbow-gradient: #333;
+  --Pastel-rainbow-gradient: linear-gradient(
+    to left,
+    #dff7bd,
+    #40f2ec,
+    #add2ed,
+    #ffb2ff
+  );
+  --Blue-green-gradient: linear-gradient(
+    90deg,
+    hsla(145, 83%, 74%, 1) 0%,
+    hsla(204, 77%, 76%, 1) 100%
+  );
+  --Dark-mode-gradient: linear-gradient(
+    45deg,
+    hsla(216, 100%, 56%, 1) 9%,
     hsla(206, 98%, 60%, 1) 24%,
     hsla(201, 97%, 62%, 1) 41%,
     hsla(204, 92%, 66%, 1) 58%,
     hsla(217, 85%, 69%, 0.9) 77%,
-    hsla(256, 75%, 68%, 1) 92%);
+    hsla(256, 75%, 68%, 1) 92%
+  );
 }
 
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    background: var(--background-gradient);
-    margin-top: 75px;
-    font-family: "Montserrat", sans-serif;
-    font-size: 20px;
-    color: #424b54;
+  background: var(--background-gradient);
+  margin-top: 75px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  color: #424b54;
 }
 
 main {
-    padding: 10px;
-    background: var(--Blue-green-gradient);
-    margin: 0 auto;
-    width: 500px;
-    border-radius: 3%;
+  padding: 10px;
+  background: var(--Blue-green-gradient);
+  margin: 0 auto;
+  width: 500px;
+  border-radius: 3%;
 }
 
 h1 {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    margin: 0 auto;
-    text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 h2 {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 button {
-    border-style: none;
-    text-align: center;
-    padding: 7px 15px;
-    background-color: #EDFBFD;
-    /* background-color: var(--background-gradient); */
-    font-size: 20px;
+  border-style: none;
+  text-align: center;
+  padding: 7px 15px;
+  background-color: #edfbfd;
+  /* background-color: var(--background-gradient); */
+  font-size: 20px;
 }
 
 button:focus:not(:focus-visible) {
-    outline: none;
+  outline: none;
 }
 
 button:focus:not(:-moz-focusring) {
-    outline: none;
+  outline: none;
 }
 
 .theme-btn-div {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .theme-btn {
-    text-align: center;
-    font-size: 15px;
+  text-align: center;
+  font-size: 15px;
 }
 
-.angel, .luca {
-
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    margin: 5px auto;
-    position: relative;
-    padding: 0 0 5px 5px;
-
+.angel,
+.luca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px auto;
+  position: relative;
+  padding: 0 0 5px 5px;
 }
 
 .angel {
-
 }
 .luca {
-
 }
 
-#lucaState, #angelState {
-    padding-block: 0;
+#lucaState,
+#angelState {
+  padding-block: 0;
 }
 
-
-#angelButton, #lucaButton {
+#angelButton,
+#lucaButton {
 }
 
 /* @media screen and (min-width:901px) {
@@ -140,19 +230,20 @@ button:focus:not(:-moz-focusring) {
 
 } */
 @media screen and (max-width: 900px) {
-    .item {
-        width: 50%;
-    }
-    #angelButton, #lucaButton {
-        /*font-size: 1vw;*/
-    }
+  .item {
+    width: 50%;
+  }
+  #angelButton,
+  #lucaButton {
+    /*font-size: 1vw;*/
+  }
 }
 @media screen and (max-width: 600px) {
-
-    .item {
-        width: 100%;
-    }
-    #angelButton, #lucaButton {
-        /*font-size: 10vw;*/
-    }
+  .item {
+    width: 100%;
+  }
+  #angelButton,
+  #lucaButton {
+    /*font-size: 10vw;*/
+  }
 }
