@@ -33,7 +33,7 @@ body {
     background: var(--Peapod-gradient);
     /* margin-top: 5vh; */
     margin: 0;
-    font-family: 'Kalam', cursive;
+    font-family: 'Martel Sans', sans-serif;
 }
 
 .mobile-container {
