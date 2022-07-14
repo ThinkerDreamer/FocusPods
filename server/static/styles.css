@@ -1,0 +1,128 @@
+:root {
+    --background-gradient: var(--Pastel-rainbow-gradient);
+    --Dark-rainbow-gradient: #333;
+    --Pastel-rainbow-gradient: linear-gradient(to left,
+            #dff7bd,
+            #40f2ec,
+            #add2ed,
+            #ffb2ff);
+    --Blue-green-gradient: linear-gradient(90deg,
+            hsla(145, 83%, 74%, 1) 0%,
+            hsla(204, 77%, 76%, 1) 100%);
+    --Dark-mode-gradient: linear-gradient(45deg,
+            hsla(216, 100%, 56%, 1) 9%,
+            hsla(206, 98%, 60%, 1) 24%,
+            hsla(201, 97%, 62%, 1) 41%,
+            hsla(204, 92%, 66%, 1) 58%,
+            hsla(217, 85%, 69%, 0.9) 77%,
+            hsla(256, 75%, 68%, 1) 92%);
+    --Peapod-gradient: linear-gradient(45deg,
+            #124010,
+            #31731F,
+            #94BF36);
+    --light-color: #efefef;
+}
+
+html {
+    height: 100%;
+    font-size: 26px;
+    color: #94BF36;
+    box-sizing: border-box;
+}
+
+body {
+    /* background: var(--background-gradient); */
+    background: var(--Peapod-gradient);
+    /* margin-top: 5vh; */
+    margin: 0;
+    font-family: 'Martel Sans', sans-serif;
+}
+
+.mobile-container {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.main-content {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 600px;
+    width: 95%;
+}
+
+.flex {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+h1 {
+    padding: 30px 0;
+    margin: 0;
+    text-align: center;
+    font-size: 3rem;
+    line-height: 1;
+    font-family: 'Martel', serif;
+    /* font-family: 'Podkova', serif; */
+
+    background-image: url("peapod.jpg");
+    background-color: #444;
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    max-height: 25vh;
+}
+
+ul {
+    color: var(--light-color);
+    margin: 1rem 0;
+    list-style: none;
+    font-size: .8rem;
+    text-align: center;
+    padding: 0;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center
+}
+
+button {
+    border-style: none;
+    text-align: center;
+    padding: 0.5rem 1.5rem;
+    background-color: #473B30;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--light-color);
+    font-family: 'Martel', serif;
+    /* font-family: 'Podkova', serif; */
+    font-weight: 400;
+    cursor: pointer;
+}
+
+h2 {
+    text-align: center;
+    color: var(--light-color);
+}
+
+@media screen and (min-width: 901px) {
+    h1 {
+        padding: 100px 0;
+        font-size: 4rem;
+    }
+
+    ul {
+        font-size: 1.2rem;
+    }
+
+    .mobile-container {
+        max-height: 50vh;
+    }
+}
