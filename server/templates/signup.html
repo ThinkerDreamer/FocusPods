@@ -1,12 +1,35 @@
 {% extends "base.html" %}
 {% block title %}Sign Up for Focus Pods!{% endblock %}
 {% block content %}
-<div class="flex">
-    <h1>Focus Pods</h1>
+<div class="main-content">
+    <h2>Sign up here!</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <form action="#" method="post">
+        <ul class="flex-form flex">
+            <li class="form-item">
+                <label for="name">Name: </label>
+                <input type="text" id="name-input" name="name">
+            </li>
+            <li class="form-item">
+                <label for="email">Email: </label>
+                <input type="email" id="email-input" name="email">
+            </li>
+            <li class="form-item">
+                <label for="password">Password: </label>
+                <input type="password" id="password-input" name="password">
+            </li>
+            <li class="form-item">
+                <input type="submit" value="Submit">
+            </li>
+        </ul>
+    </form>
 </div>
-<h2>Sign up here!</h2>
-<form action="#" method="post">
-    <label>Name:<input type="text" id="name-input"></label>
-    <input type="submit" value="Submit">
-</form>
 {% endblock %}
