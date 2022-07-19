@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Focus Pods Users{% endblock %}
+{% block content %}
+<div class="main-content">
+    <h2>Users</h2>
+    {% for user in users %}
+    <ul class="user">
+        <li>Name: {{ user.name }}</li>
+        <li>Email: {{ user.email }}</li>
+    </ul>
+    {% endfor %}
+</div>
+{% endblock %}
