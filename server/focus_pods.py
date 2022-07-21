@@ -4,6 +4,7 @@ import os
 from flask import Flask, flash, redirect, session, url_for, render_template, request, session
 from markupsafe import Markup
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import select
 from sqlalchemy import func
 
 app = Flask(__name__)
@@ -19,7 +20,7 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now())
-    
+
     def __repr__(self) -> str:
         return f"User(id={self.id!r}, name={self.name!r}, email={self.email!r}, created_at={self.created_at!r})"
 
@@ -45,6 +46,7 @@ def sign_up():
         user = User(name=name,
                     email=email,
                     password=password,
+                    created_at= func.now(),
                     )
         db.session.add(user)
         db.session.commit()
@@ -53,22 +55,24 @@ def sign_up():
         flash("You have successfully signed up!")
         flash(Markup("Please <a href='/login'>login</a> to continue"))
     return render_template("signup.html")
- 
+
 @app.route("/login/", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
-        user = request.form["username"]
+        username = request.form["username"]
         password = request.form["password"]
-        if True:
+        result = db.session.execute(select(User).where(User.email==username).where(User.password==password)).all()
+        print("do we see this?", result)
+        if result:
             session["logged_in"] = True
-            return redirect(url_for("logged_in", name=user))
-            
+            return redirect(url_for("logged_in", name=username))
+
         else:
             flash("Incorrect login credentials!")
             return render_template("login.html")
     else:
         return render_template("login.html")
- 
+
 if __name__ == "__main__":
     app.secret_key = "I am a super secret key!"
     app.config["SESSION_TYPE"] = 'filesystem'
