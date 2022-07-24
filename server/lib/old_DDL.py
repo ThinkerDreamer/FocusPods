@@ -19,6 +19,24 @@ cur.execute("create table users (id serial primary key, "
             "created_at timestamptz NOT NULL,"
             "password varchar (50) NOT NULL);"
             )
+            
+cur.execute("drop table if exists rooms;")
+cur.execute("create table rooms (id serial primary key, "
+            "name varchar (100),"
+            "created_at timestamptz NOT NULL);"
+            )
+
+cur.execute("drop table if exists rooms_users;")
+cur.execute("create table rooms_users (room_id serial references rooms(id),"
+            "user_id integer references users(id));"
+            )
+            
+cur.execute("insert into rooms (name, created_at)"
+            "values (%s, %s)",
+            ("First room",
+             "2020-01-01 00:00:00")
+            )
+
 cur.execute("insert into users (name, email, created_at, password)"
             "values (%s, %s, %s, %s)",
             ("Angel",
@@ -33,6 +51,16 @@ cur.execute("insert into users (name, email, created_at, password)"
              "shae@scannedinavian.com",
              "1971-09-18",
              "0987")
+            )
+
+cur.execute("insert into rooms_users (room_id, user_id)"
+            "values (%s, %s)",
+            (1, 1)        
+            )
+
+cur.execute("insert into rooms_users (room_id, user_id)"
+            "values (%s, %s)",
+            (1, 2)        
             )
 
 conn.commit()

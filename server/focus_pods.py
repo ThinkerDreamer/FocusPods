@@ -1,14 +1,23 @@
 import os
 from flask import Flask, flash, redirect, session, url_for, render_template, request, session
 from markupsafe import Markup
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import select
+from flask_sqlalchemy import BaseQuery, SQLAlchemy
+from sqlalchemy import Column, ForeignKey, Table, select, Integer
 from sqlalchemy import func
+from sqlalchemy.orm import declarative_base, relationship
 
+Base = declarative_base()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql+psycopg2://{os.environ["DB_USERNAME"]}:{os.environ["DB_PASSWORD"]}@localhost/focus_pods_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+association_table = Table(
+    "association",
+    Base.metadata,
+    Column("room_id", ForeignKey("rooms.id")),
+    Column("user_id", ForeignKey("users.id")),
+)
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -18,9 +27,21 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now())
+    children = relationship("Room", secondary=association_table)
 
     def __repr__(self) -> str:
         return f"User(id={self.id!r}, name={self.name!r}, email={self.email!r}, created_at={self.created_at!r})"
+
+class Room(db.Model):
+    __tablename__ = 'rooms'
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(100))
+    created_at = db.Column(db.DateTime(timezone=True),
+                           server_default=func.now())
+
+    def __repr__(self) -> str:
+        return f"Room(id={self.id!r}, name={self.name!r}, created_at={self.created_at!r})"
+
 
 @app.route("/users/")
 def get_users():
@@ -33,7 +54,7 @@ def home():
 
 @app.route("/loggedin/<name>")
 def logged_in(name):
-    return render_template("loggedin.html", user=name)
+    return render_template("loggedin.html", user=name, )
 
 @app.route("/sign-up/", methods=["POST", "GET"])
 def sign_up():
@@ -70,6 +91,11 @@ def login():
             return render_template("login.html")
     else:
         return render_template("login.html")
+
+@app.route("/<room_id>/")
+def room(room_id):
+    return render_template("room.html", room_id=room_id)
+
 
 if __name__ == "__main__":
     app.secret_key = "I am a super secret key!"
