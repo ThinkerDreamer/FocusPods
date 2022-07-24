@@ -13,7 +13,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 association_table = Table(
-    "association",
+    "rooms_users",
     Base.metadata,
     Column("room_id", ForeignKey("rooms.id")),
     Column("user_id", ForeignKey("users.id")),

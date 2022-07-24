@@ -12,25 +12,26 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 # Execute a command: this creates a new table
-cur.execute("drop table if exists users;")
+cur.execute("drop table if exists users cascade;")
 cur.execute("create table users (id serial primary key, "
             "name varchar (100) NOT NULL,"
             "email varchar (100) NOT NULL,"
             "created_at timestamptz NOT NULL,"
             "password varchar (50) NOT NULL);"
             )
-            
-cur.execute("drop table if exists rooms;")
+
+cur.execute("drop table if exists rooms cascade;")
 cur.execute("create table rooms (id serial primary key, "
             "name varchar (100),"
             "created_at timestamptz NOT NULL);"
             )
 
-cur.execute("drop table if exists rooms_users;")
-cur.execute("create table rooms_users (room_id serial references rooms(id),"
+cur.execute("drop table if exists rooms_users cascade;")
+# XXX well, WHICH ONE IS IT? serial or integer? maybe neither of them? :tears:
+cur.execute("create table rooms_users (room_id integer references rooms(id),"
             "user_id integer references users(id));"
             )
-            
+
 cur.execute("insert into rooms (name, created_at)"
             "values (%s, %s)",
             ("First room",
@@ -55,12 +56,12 @@ cur.execute("insert into users (name, email, created_at, password)"
 
 cur.execute("insert into rooms_users (room_id, user_id)"
             "values (%s, %s)",
-            (1, 1)        
+            (1, 1)
             )
 
 cur.execute("insert into rooms_users (room_id, user_id)"
             "values (%s, %s)",
-            (1, 2)        
+            (1, 2)
             )
 
 conn.commit()
