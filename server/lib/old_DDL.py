@@ -14,27 +14,28 @@ cur = conn.cursor()
 # Execute a command: this creates a new table
 cur.execute("drop table if exists users;")
 cur.execute("create table users (id serial primary key, "
-                                "name varchar (100) NOT NULL,"
-                                "email varchar (100) NOT NULL,"
-                                "password varchar (50) NOT NULL);"
-                                )
-cur.execute("insert into users (name, email, password)"
-            "values (%s, %s, %s)",
+            "name varchar (100) NOT NULL,"
+            "email varchar (100) NOT NULL,"
+            "created_at timestamptz NOT NULL,"
+            "password varchar (50) NOT NULL);"
+            )
+cur.execute("insert into users (name, email, created_at, password)"
+            "values (%s, %s, %s, %s)",
             ("Angel",
             "angel@angel.com",
+             "1971-09-18",
             "123456")
             )
 
-cur.execute("insert into users (name, email, password)"
-            "values (%s, %s, %s)",
-            ("Foo",
-            "foo@foo.com",
-            "0987")
+cur.execute("insert into users (name, email, created_at, password)"
+            "values (%s, %s, %s, %s)",
+            ("Shae",
+             "shae@scannedinavian.com",
+             "1971-09-18",
+             "0987")
             )
 
 conn.commit()
 
 cur.close()
 conn.close()
-
-
