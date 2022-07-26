@@ -1,8 +1,8 @@
 import os
 from flask import Flask, flash, redirect, session, url_for, render_template, request, session
 from markupsafe import Markup
-from flask_sqlalchemy import BaseQuery, SQLAlchemy
-from sqlalchemy import Column, ForeignKey, Table, select, Integer
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, ForeignKey, Table, select
 from sqlalchemy import func
 from sqlalchemy.orm import declarative_base, relationship
 
