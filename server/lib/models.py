@@ -1,5 +1,5 @@
-from sqlalchemy import Column, ForeignKey, Integer, MetaData, String, create_engine, table, text
-from sqlalchemy.orm import registry, declarative_base, Session, sessionmaker, scoped_session
+from sqlalchemy import Column, ForeignKey, Integer, String
+from lib.DDL import Base
 
 class User(Base):
     __tablename__ = 'users'
