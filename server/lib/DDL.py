@@ -15,8 +15,6 @@ def init_db():
         conn.execute(text('DROP TABLE IF EXISTS users CASCADE;'))
         conn.execute(text('DROP TABLE IF EXISTS rooms CASCADE;'))
         conn.execute(text('DROP TABLE IF EXISTS rooms_users CASCADE;'))
-    # import all modules here that might define models so that
-    # they will be registered properly on the metadata.  Otherwise
-    # you will have to import them first before calling init_db()
-    import lib.models
+
+    import server.lib.models
     Base.metadata.create_all(bind=engine)
