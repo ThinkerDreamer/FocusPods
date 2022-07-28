@@ -27,7 +27,6 @@ cur.execute("create table rooms (id serial primary key, "
             )
 
 cur.execute("drop table if exists rooms_users cascade;")
-# XXX well, WHICH ONE IS IT? serial or integer? maybe neither of them? :tears:
 cur.execute("create table rooms_users (room_id integer references rooms(id),"
             "user_id integer references users(id));"
             )
