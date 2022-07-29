@@ -2,7 +2,7 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, flash, redirect, session, url_for, render_template, request
 from markupsafe import Markup
-from lib.models import User
+from .lib.models import User
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql+psycopg2://{os.environ["DB_USERNAME"]}:{os.environ["DB_PASSWORD"]}@localhost/focus_pods_db'
