@@ -1,7 +1,8 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, flash, redirect, session, url_for, render_template, request
+from flask import Flask, flash, redirect, url_for, render_template, request
 from markupsafe import Markup
+from sqlalchemy import select
 from .lib.models import User
 
 app = Flask(__name__)
@@ -20,7 +21,7 @@ def home():
 
 @app.route("/loggedin/<name>")
 def logged_in(name):
-    return render_template("loggedin.html", user=name, )
+    return render_template("loggedin.html", user=name)
 
 @app.route("/sign-up/", methods=["POST", "GET"])
 def sign_up():
@@ -32,8 +33,8 @@ def sign_up():
                     email=email,
                     password=password
                     )
-        #db.session.add(user)
-        #db.session.commit()
+        db.session.add(user)
+        db.session.commit()
         print(f'{user} added')
         flash(f'Welcome {name}!')
         flash("You have successfully signed up!")
@@ -45,14 +46,14 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
-        #print(db.session)
-        #result = db.session.execute(select(User).where(User.email==email).where(User.password==password)).all()
-        #print("do we see this?", result)
-        #import os
-    #     else:
-    #         flash("Incorrect login credentials!")
-    #         return render_template("login.html")
-    # else:
+        result = db.session.execute(select(User).where(User.email==email).where(User.password==password)).all()
+        if result:
+            print(f"result is: {result}")
+            return redirect(url_for("logged_in", name=email))
+        else:
+            flash("Incorrect login credentials!")
+            return render_template("login.html")
+    else:
         return render_template("login.html")
 
 @app.route("/<room_id>/")
