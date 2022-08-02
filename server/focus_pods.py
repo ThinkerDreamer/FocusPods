@@ -46,10 +46,11 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
-        result = db.session.execute(select(User).where(User.email==email).where(User.password==password)).all()
-        if result:
-            print(f"result is: {result}")
-            return redirect(url_for("logged_in", name=email))
+        user_logging_in = db.session.execute(select(User).where(User.email==email).where(User.password==password)).one_or_none()
+        if user_logging_in:
+            user_logging_in = dict(user_logging_in)  # Converts from Row type to Dict
+            name_of_user = user_logging_in["User"].name  # Grabs the name from the Dict
+            return redirect(url_for("logged_in", name=name_of_user))
         else:
             flash("Incorrect login credentials!")
             return render_template("login.html")
