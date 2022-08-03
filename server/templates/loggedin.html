@@ -3,5 +3,9 @@
 {% block content %}
 <div class="main-content">
     <h2>Hello, {{ user }}! You are now logged in!</h2>
+    <h3>Which pod would you like to go to?</h3>
+    {% for row in pods %}
+    <p>{{ row.name }}</h1>
+        {% endfor %}
 </div>
 {% endblock %}
