@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, flash, redirect, session, url_for, render_template, request
 from markupsafe import Markup
 from sqlalchemy import select
-from .lib.models import Room, Room_User, User
+from .lib.models import Room, room_user, User
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql+psycopg2://{os.environ["DB_USERNAME"]}:{os.environ["DB_PASSWORD"]}@localhost/focus_pods_db'
@@ -67,17 +67,14 @@ def login():
 def logged_in():
     name = session.get("name", None)
     id = session.get("uid", None)
-    #pods_user_is_in = Room_User.query.get(int(id))  # Possibly close to working code?
-    pods_user_is_in = Room_User.query.all()  # This is wrong! It gets all rooms
-    # TODO: Sort out how to get the right rooms, join on association table
-    # The answer may be here: https://stackoverflow.com/questions/41270319/how-do-i-query-an-association-table-in-sqlalchemy
+    pods_user_is_in = Room.query.join(room_user).join(User).filter((room_user.c.user_id == id) & (room_user.c.room_id == Room.id)).all()
 
-    #print(f'pods_user_is_in is: {pods_user_is_in}')
-    query = Room.query.all()
+    print(f'pods_user_is_in is: {pods_user_is_in}')
+    all_rooms = Room.query.all()
     pod_list = []
-    for room in query:
+    for room in all_rooms:
         for pod in pods_user_is_in:
-            if room.id == pod.room_id:
+            if room.id == pod.id:
                 pod_list.append(room)
     print(f"pods is: {pods_user_is_in}")
     print(f"pod_list is: {pod_list}")
