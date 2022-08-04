@@ -1,4 +1,6 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Table
+from sqlalchemy.orm import relationship
+
 from .DDL import Base
 
 class User(Base):
@@ -16,14 +18,35 @@ class Room(Base):
     id = Column(Integer, primary_key=True)
     owner = Column(Integer, ForeignKey("users.id"), nullable=False)
     name = Column(String(40), nullable=False)
+    users = relationship("User", secondary="rooms_users")
 
     def __repr__(self) -> str:
         return f"Room(id={self.id!r}, owner={self.owner!r}, name={self.name!r})"
 
-class Room_User(Base):
-    __tablename__ = 'rooms_users'
-    room_id = Column(Integer, ForeignKey('rooms.id'), primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
+room_user = Table(
+    'rooms_users',
+    Base.metadata,
+    Column("room_id", ForeignKey('rooms.id'), primary_key=True),
+    Column("user_id", ForeignKey('users.id'), primary_key=True),
+)
 
-    def __repr__(self) -> str:
-        return f"Room_User(room_id={self.room_id!r}, user_id={self.user_id!r})"
+# How we understand
+# 1 [Fish, Dolphin]
+# 2 [Cat, Dog]
+
+# USERS
+# 1 Fish
+# 2 Dolphin
+# 3 Cat
+# 4 Dog
+
+# ROOMS
+# 1
+# 2
+
+# ROOM to USER 
+# 1,  1
+# 1,  2
+# 2,  3
+# 2,  4
+
