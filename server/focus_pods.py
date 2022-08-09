@@ -5,6 +5,7 @@ from markupsafe import Markup
 from sqlalchemy import select
 from .lib.models import Room, room_user, User
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql+psycopg2://{os.environ["DB_USERNAME"]}:{os.environ["DB_PASSWORD"]}@localhost/focus_pods_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -42,7 +43,6 @@ def sign_up():
 def login():
     if session:
         session.clear()
-        print(session)
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
@@ -51,10 +51,8 @@ def login():
             session["logged_in"] = True
             user_logging_in = dict(user_logging_in)  # Converts from Row type to Dict
             name_of_user = user_logging_in["User"].name  # Grabs the name from the Dict
-            print(f'name_of_user is: {name_of_user}')
             user_id = user_logging_in["User"].id  # Grab the id
             session["name"] = name_of_user
-            print(f'session["name"] is: {session["name"]}')
             session["uid"] = user_id
             return redirect(url_for("logged_in"))
         else:
@@ -63,7 +61,7 @@ def login():
     else:
         return render_template("login.html")
 
-@app.route("/loggedin/")
+@app.route("/loggedin/", methods=["POST", "GET"])
 def logged_in():
     name = session.get("name", None)
     id = session.get("uid", None)
@@ -76,8 +74,25 @@ def logged_in():
         for pod in pods_user_is_in:
             if room.id == pod.id:
                 pod_list.append(room)
-    print(f"pods is: {pods_user_is_in}")
-    print(f"pod_list is: {pod_list}")
+    #print(f"pods is: {pods_user_is_in}")
+    #print(f"pod_list is: {pod_list}")
+
+    if request.method == "POST":
+        user_id = session["uid"]
+        room_name = request.form["room_name"]
+        # TODO: Figure out how to set the owner
+        # owner_id = User.query.filter_by(id=user_id).first()
+        #print(User(id=3).__repr__)
+        owner = db.session.execute(select(User).where(User.id==user_id)).one_or_none()
+        print(owner.__repr__())
+        room = Room(owner=owner,name=room_name)
+        print(room.__dict__)
+        room.users.append(owner)
+        print(room.__dict__)
+        db.session.add(room)
+        db.session.commit()
+        flash("You have successfully created a room!")
+
     return render_template("loggedin.html", user=name, pods=pod_list)
 
 @app.route("/logout/")
