@@ -17,6 +17,11 @@ def get_users():
     users = User.query.all()
     return render_template("users.html", users=users)
 
+@app.route("/rooms/")
+def get_rooms():
+    rooms = Room.query.all()
+    return render_template("rooms.html", rooms=rooms)
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -66,32 +71,27 @@ def logged_in():
     name = session.get("name", None)
     id = session.get("uid", None)
     pods_user_is_in = Room.query.join(room_user).join(User).filter((room_user.c.user_id == id) & (room_user.c.room_id == Room.id)).all()
-
-    print(f'pods_user_is_in is: {pods_user_is_in}')
     all_rooms = Room.query.all()
     pod_list = []
     for room in all_rooms:
         for pod in pods_user_is_in:
             if room.id == pod.id:
                 pod_list.append(room)
-    #print(f"pods is: {pods_user_is_in}")
-    #print(f"pod_list is: {pod_list}")
 
     if request.method == "POST":
         user_id = session["uid"]
         room_name = request.form["room_name"]
-        # TODO: Figure out how to set the owner
-        # owner_id = User.query.filter_by(id=user_id).first()
-        #print(User(id=3).__repr__)
-        owner = db.session.execute(select(User).where(User.id==user_id)).one_or_none()
-        print(owner.__repr__())
-        room = Room(owner=owner,name=room_name)
-        print(room.__dict__)
-        room.users.append(owner)
-        print(room.__dict__)
+        owner_row = db.session.execute(select(User).where(User.id==user_id)).one_or_none()
+
+        # Create the room without many-to-many user list first
+        room = Room(name=room_name, owner=owner_row.User.id)
         db.session.add(room)
+
+        # After adding the room to the schema, add the owner to the users list
+        room.users.append(owner_row.User)
         db.session.commit()
-        flash("You have successfully created a room!")
+        pod_list.append(room)
+        return render_template("createdroom.html", user=name, pods=pod_list)
 
     return render_template("loggedin.html", user=name, pods=pod_list)
 
