@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Focus Pods{% endblock %}
+{% block content %}
+<div class="main-content">
+    <h2>Hello, {{ user }}! You have successfully created a pod!</h2>
+    <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Which pod would you like to go to?</h3>
+    {% for row in pods %}
+    <p>{{ row.name }}</p>
+    {% endfor %}
+    <p id="makeNewPodEl">Make a new pod</p>
+    <form action="#" method="post">
+        <input type="text" id="podName" placeholder="Give it a good name!" name="room_name">
+        <button id="newPodSubmit" type="submit">Create</button>
+    </form>
+</div>
+<script type="text/javascript" src={{ url_for("static", filename='loggedin.js' ) }}></script>
+{% endblock %}
