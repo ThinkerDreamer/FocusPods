@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Focus Pods Rooms{% endblock %}
+{% block content %}
+<div class="main-content">
+    <h2>Rooms</h2>
+    {% for room in rooms %}
+    <ul class="room">
+        <li>Name: {{ room.name }}</li>
+        <li>Owner: {{ room.owner }}</li>
+        <li>Users: {{ room.users }}</li>
+    </ul>
+    {% endfor %}
+</div>
+{% endblock %}
