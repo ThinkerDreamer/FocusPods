@@ -38,6 +38,7 @@ def sign_up():
                     )
         db.session.add(user)
         db.session.commit()
+        db.session.close()
         print(f'{user} added')
         flash(f'Welcome {name}!')
         flash("You have successfully signed up!")
@@ -91,6 +92,7 @@ def logged_in():
         room.users.append(owner_row.User)
         db.session.commit()
         pod_list.append(room)
+        db.session.close()
         return render_template("createdroom.html", user=name, pods=pod_list)
 
     return render_template("loggedin.html", user=name, pods=pod_list)
@@ -103,9 +105,9 @@ def logout():
     else:
         return render_template("not_logged_in.html")
 
-# @app.route("/<room_id>/")
-# def room(room_id):
-#     return render_template("room.html", room_id=room_id)
+@app.route("/pod/<room_id>/")
+def room(room_id):
+    return render_template("room.html", room_id=room_id)
 
 
 if __name__ == "__main__":
