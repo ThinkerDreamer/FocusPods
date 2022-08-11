@@ -24,16 +24,15 @@
 }
 
 html {
-    height: 100%;
     font-size: 26px;
     color: #94BF36;
     box-sizing: border-box;
 }
 
 body {
-    /* background: var(--background-gradient); */
+    height: 100%;
     background: var(--Peapod-gradient);
-    /* margin-top: 5vh; */
+    background-attachment: fixed;
     margin: 0;
     font-family: 'Martel Sans', sans-serif;
 }
@@ -144,9 +143,20 @@ h2 {
     margin: 1rem;
 }
 
+p .bulleted {
+    list-style: circle inside;
+}
+
+#makeNewPodEl {
+    cursor: pointer;
+}
+
 #podName,
 #newPodSubmit {
     display: none;
+    text-align: center;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
 }
 
 @media screen and (min-width: 901px) {
@@ -157,6 +167,10 @@ h2 {
 
     ul {
         font-size: 1rem;
+    }
+
+    .main-content {
+        max-width: 750px;
     }
 
     .mobile-container {
