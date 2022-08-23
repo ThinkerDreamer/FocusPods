@@ -10,21 +10,21 @@
     </ul>
     <h3>Which pod would you like to go to?</h3>
     {% for row in pods %}
-    <p class="bulleted"><a href="{{ url_for('room'), }}" row.name }}</p>
-            {% endfor %}
-            <p id="makeNewPodEl" class="bulleted">Make a new pod</p>
-            <form action="#" method="post" class="flex-form flex">
-                <ul>
-                    <li class="form-item">
-                        <input type="text" id="podName" placeholder="Give it a good name!" name="room_name">
-                    </li>
-                    <li class="form-item">
-                        <input id="newPodSubmit" type="submit" value="Create">
-                    </li>
-                </ul>
+    <p class="bulleted"><a href={{ url_for("room", room_id=row.id ) }}>{{ row.name }}</a></p>
+    {% endfor %}
+    <p id="makeNewPodEl" class="bulleted">Make a new pod</p>
+    <form action="#" method="post" class="flex-form flex">
+        <ul>
+            <li class="form-item">
+                <input type="text" id="podName" placeholder="Give it a good name!" name="room_name">
+            </li>
+            <li class="form-item">
+                <input id="newPodSubmit" type="submit" value="Create">
+            </li>
+        </ul>
 
 
-            </form>
+    </form>
 </div>
 <script type="text/javascript" src={{ url_for("static", filename='loggedin.js' ) }}></script>
 {% endblock %}

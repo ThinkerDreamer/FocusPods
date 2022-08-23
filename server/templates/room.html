@@ -2,10 +2,16 @@
 {% block title %}Focus Pods{% endblock %}
 {% block content %}
 <div class="main-content">
-    <h2>Hello, {{ user }}! Welcome to {{ room }}!</h2>
+    <h2>Hello, {{ user }}! Welcome to {{ room.Room.name }}!</h2>
     <ul class=flashes>
         {% for message in messages %}
         <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    <p>In this room...</p>
+    <ul>
+        {% for user in room.Room.users %}
+        <li>{{ user.name }}</li>
         {% endfor %}
     </ul>
     <!-- <h3>Which pod would you like to go to?</h3>
