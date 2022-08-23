@@ -2,15 +2,21 @@
 {% block title %}Focus Pods{% endblock %}
 {% block content %}
 <div class="main-content">
-    <h2>Hello, {{ user }}! You are now logged in!</h2>
+    <h2>Hello, {{ user }}! Welcome to {{ room.Room.name }}!</h2>
     <ul class=flashes>
         {% for message in messages %}
         <li>{{ message }}</li>
         {% endfor %}
     </ul>
-    <h3>Which pod would you like to go to?</h3>
+    <p>In this room...</p>
+    <ul>
+        {% for user in room.Room.users %}
+        <li>{{ user.name }}</li>
+        {% endfor %}
+    </ul>
+    <!-- <h3>Which pod would you like to go to?</h3>
     {% for row in pods %}
-    <p class="bulleted"><a href={{ url_for("room", room_id=row.id ) }}>{{ row.name }}</a></p>
+    <p class="bulleted">{{ row.name }}</p>
     {% endfor %}
     <p id="makeNewPodEl" class="bulleted">Make a new pod</p>
     <form action="#" method="post" class="flex-form flex">
@@ -24,7 +30,7 @@
         </ul>
 
 
-    </form>
+    </form> -->
 </div>
 <script type="text/javascript" src={{ url_for("static", filename='loggedin.js' ) }}></script>
 {% endblock %}
