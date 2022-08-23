@@ -4,3 +4,4 @@ __pycache__
 *.pyc
 .venv
 /scripts/run.txt
+/scripts/scratch.sql
