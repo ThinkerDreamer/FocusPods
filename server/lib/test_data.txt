@@ -1,0 +1,40 @@
+# squidward = User(name='Squidward', email='myemail@thesea.com', password='this is a bad password')
+# session = Session(engine)
+# session.add(squidward)
+# session.commit()
+
+
+"""
+cur.execute("insert into rooms (name, created_at)"
+            "values (%s, %s)",
+            ("First room",
+             "2020-01-01 00:00:00")
+            )
+
+cur.execute("insert into users (name, email, created_at, password)"
+            "values (%s, %s, %s, %s)",
+            ("Angel",
+            "angel@angel.com",
+             "1971-09-18",
+            "123456")
+            )
+
+cur.execute("insert into users (name, email, created_at, password)"
+            "values (%s, %s, %s, %s)",
+            ("Shae",
+             "shae@scannedinavian.com",
+             "1971-09-18",
+             "0987")
+            )
+
+cur.execute("insert into rooms_users (room_id, user_id)"
+            "values (%s, %s)",
+            (1, 1)
+            )
+
+cur.execute("insert into rooms_users (room_id, user_id)"
+            "values (%s, %s)",
+            (1, 2)
+            )
+            
+"""

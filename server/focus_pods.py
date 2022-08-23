@@ -1,39 +1,30 @@
 import os
-from flask import Flask, flash, redirect, session, url_for, render_template, request, session
-from markupsafe import Markup
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, flash, redirect, session, url_for, render_template, request
+from markupsafe import Markup
 from sqlalchemy import select
-from sqlalchemy import func
+from .lib.models import Room, room_user, User
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql+psycopg2://{os.environ["DB_USERNAME"]}:{os.environ["DB_PASSWORD"]}@localhost/focus_pods_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False, unique=True)
-    password = db.Column(db.String(100), nullable=False)
-    created_at = db.Column(db.DateTime(timezone=True),
-                           server_default=func.now())
-
-    def __repr__(self) -> str:
-        return f"User(id={self.id!r}, name={self.name!r}, email={self.email!r}, created_at={self.created_at!r})"
-
+# For testing purposes only, show all users
 @app.route("/users/")
 def get_users():
     users = User.query.all()
     return render_template("users.html", users=users)
 
+@app.route("/rooms/")
+def get_rooms():
+    rooms = Room.query.all()
+    return render_template("rooms.html", rooms=rooms)
+
 @app.route("/")
 def home():
     return render_template("index.html")
-
-@app.route("/loggedin/<name>")
-def logged_in(name):
-    return render_template("loggedin.html", user=name)
 
 @app.route("/sign-up/", methods=["POST", "GET"])
 def sign_up():
@@ -43,8 +34,7 @@ def sign_up():
         password = request.form["password"]
         user = User(name=name,
                     email=email,
-                    password=password,
-                    created_at= func.now(),
+                    password=password
                     )
         db.session.add(user)
         db.session.commit()
@@ -56,20 +46,67 @@ def sign_up():
 
 @app.route("/login/", methods=["POST", "GET"])
 def login():
+    if session:
+        session.clear()
     if request.method == "POST":
-        username = request.form["username"]
+        email = request.form["email"]
         password = request.form["password"]
-        result = db.session.execute(select(User).where(User.email==username).where(User.password==password)).all()
-        print("do we see this?", result)
-        if result:
+        user_logging_in = db.session.execute(select(User).where(User.email==email).where(User.password==password)).one_or_none()
+        if user_logging_in:
             session["logged_in"] = True
-            return redirect(url_for("logged_in", name=username))
-
+            user_logging_in = dict(user_logging_in)  # Converts from Row type to Dict
+            name_of_user = user_logging_in["User"].name  # Grabs the name from the Dict
+            user_id = user_logging_in["User"].id  # Grab the id
+            session["name"] = name_of_user
+            session["uid"] = user_id
+            return redirect(url_for("logged_in"))
         else:
             flash("Incorrect login credentials!")
             return render_template("login.html")
     else:
         return render_template("login.html")
+
+@app.route("/loggedin/", methods=["POST", "GET"])
+def logged_in():
+    name = session.get("name", None)
+    id = session.get("uid", None)
+    pods_user_is_in = Room.query.join(room_user).join(User).filter((room_user.c.user_id == id) & (room_user.c.room_id == Room.id)).all()
+    all_rooms = Room.query.all()
+    pod_list = []
+    for room in all_rooms:
+        for pod in pods_user_is_in:
+            if room.id == pod.id:
+                pod_list.append(room)
+
+    if request.method == "POST":
+        user_id = session["uid"]
+        room_name = request.form["room_name"]
+        owner_row = db.session.execute(select(User).where(User.id==user_id)).one_or_none()
+
+        # Create the room without many-to-many user list first
+        room = Room(name=room_name, owner=owner_row.User.id)
+        db.session.add(room)
+
+        # After adding the room to the schema, add the owner to the users list
+        room.users.append(owner_row.User)
+        db.session.commit()
+        pod_list.append(room)
+        return render_template("createdroom.html", user=name, pods=pod_list)
+
+    return render_template("loggedin.html", user=name, pods=pod_list)
+
+@app.route("/logout/")
+def logout():
+    if session["logged_in"] == True:
+        session.clear()
+        return render_template("loggedout.html")
+    else:
+        return render_template("not_logged_in.html")
+
+# @app.route("/<room_id>/")
+# def room(room_id):
+#     return render_template("room.html", room_id=room_id)
+
 
 if __name__ == "__main__":
     app.secret_key = "I am a super secret key!"

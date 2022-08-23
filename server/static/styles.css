@@ -144,6 +144,11 @@ h2 {
     margin: 1rem;
 }
 
+#podName,
+#newPodSubmit {
+    display: none;
+}
+
 @media screen and (min-width: 901px) {
     h1 {
         padding: 100px 0;
