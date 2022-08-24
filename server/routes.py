@@ -2,7 +2,7 @@ from flask import url_for, render_template, redirect, flash, session, request
 from markupsafe import Markup
 from sqlalchemy import select
 from .forms import ContactForm
-from .app import app, db
+from . import app, db
 from .lib.models import Room, room_user, User
 
 # For testing purposes only, show all users
