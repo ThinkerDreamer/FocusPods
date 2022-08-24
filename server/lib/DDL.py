@@ -8,7 +8,7 @@ load_dotenv(path.join(basedir, '.env'))
 
 DATABASE_URL = environ['DATABASE_URL']
 
-engine = create_engine(DATABASE_URL, echo=True, sslmode='require')
+engine = create_engine(DATABASE_URL, connect_args={'sslmode':'require'})
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
