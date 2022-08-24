@@ -2,8 +2,10 @@ from flask import url_for, render_template, redirect, flash, session, request
 from markupsafe import Markup
 from sqlalchemy import select
 from .forms import ContactForm
-from . import app, db
+from . import init_app, db
 from .lib.models import Room, room_user, User
+
+app = init_app()
 
 # For testing purposes only, show all users
 @app.route("/users/")
