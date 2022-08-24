@@ -9,13 +9,13 @@ class ContactForm(FlaskForm):
         'Name',
         [DataRequired()]
     )
-    email = StringField(
-        'Email',
-        [
-            Email(message=('Not a valid email address.')),
-            DataRequired()
-        ]
-    )
+    # email = StringField(
+    #     'Email',
+    #     [
+    #         Email(message=('Not a valid email address.')),
+    #         DataRequired()
+    #     ]
+    # )
     body = TextAreaField(
         'Message',
         [
