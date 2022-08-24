@@ -5,3 +5,4 @@ __pycache__
 .venv
 /scripts/run.txt
 /scripts/scratch.sql
+/server/.env
