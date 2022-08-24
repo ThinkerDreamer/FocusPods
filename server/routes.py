@@ -2,8 +2,8 @@ from flask import url_for, render_template, redirect, flash, session, request
 from markupsafe import Markup
 from sqlalchemy import select
 from .forms import ContactForm
-from . import init_app, db
-from .lib.models import Room, room_user, User
+from . import init_app
+from .lib.models import db, Room, room_user, User
 
 app = init_app()
 
