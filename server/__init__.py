@@ -14,10 +14,10 @@ def init_app():
         from . import routes
         return app
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 
 
-if __name__ == "__main__":
-    app.config.from_pyfile('config.py')
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.config.from_pyfile('config.py')
+#     app.run(debug=True)
