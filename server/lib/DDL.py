@@ -6,8 +6,9 @@ from os import environ, path
 basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
 
+DATABASE_URL = environ['DATABASE_URL']
 
-engine = create_engine(environ.get('DATABASE_URL'), echo=True)
+engine = create_engine(DATABASE_URL, echo=True, sslmode='require')
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
