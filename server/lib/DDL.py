@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
-from server.config import DB_PASSWORD, DB_USERNAME
+from server.config import DB_PASSWORD, DB_USERNAME, DATABASE_URL
 
-engine = create_engine(f'postgresql+psycopg2://{DB_USERNAME}:{DB_PASSWORD}@localhost/focus_pods_db', echo=True)
+engine = create_engine({DATABASE_URL}, echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))

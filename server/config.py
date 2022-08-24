@@ -7,6 +7,7 @@ load_dotenv(path.join(basedir, '.env'))
 
 DB_USERNAME = environ.get('DB_USERNAME')
 DB_PASSWORD = environ.get('DB_PASSWORD')
+DATABASE_URL = environ.get('DATABASE_URL')
 SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{DB_USERNAME}:{DB_PASSWORD}@localhost/focus_pods_db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 TESTING = True
