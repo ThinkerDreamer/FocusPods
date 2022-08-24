@@ -1,12 +1,11 @@
-from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-
-db = SQLAlchemy()
 
 def init_app():
     """Initialize the core application."""
-    app = Flask(__name__, instance_relative_config=False)
+    app = Flask(__name__)
     app.config.from_pyfile('config.py')
+    
+    from .lib.models import db
     db.init_app(app)
 
     with app.app_context():
