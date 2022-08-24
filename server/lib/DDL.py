@@ -2,10 +2,12 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
 from server.config import DATABASE_URL
 from dotenv import load_dotenv
+from os import environ, path
+basedir = path.abspath(path.dirname(__file__))
+load_dotenv(path.join(basedir, '.env'))
 
-load_dotenv()
 
-engine = create_engine({DATABASE_URL}, echo=True)
+engine = create_engine(environ.get('DATABASE_URL'), echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
