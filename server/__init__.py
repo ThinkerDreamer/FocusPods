@@ -1,6 +1,6 @@
 from flask import Flask
 
-def init_app():
+def start_app():
     """Initialize the core application."""
     app = Flask(__name__)
     app.config.from_pyfile('config.py')
@@ -14,11 +14,3 @@ def init_app():
         from . import routes
         print(routes)
         return app
-
-# app = Flask(__name__)
-
-
-
-# if __name__ == "__main__":
-#     app.config.from_pyfile('config.py')
-#     app.run(debug=True)
