@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
-from server.config import DB_PASSWORD, DB_USERNAME, DATABASE_URL
+from server.config import DATABASE_URL
 
 engine = create_engine({DATABASE_URL}, echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
