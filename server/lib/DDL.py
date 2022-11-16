@@ -1,12 +1,20 @@
-import os
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
+# from server.config import DATABASE_URL
+from server.config import SQLALCHEMY_DATABASE_URI
+from dotenv import load_dotenv
+from os import environ, path
+basedir = path.abspath(path.dirname(__file__))
+load_dotenv(path.join(basedir, '.env'))
 
-engine = create_engine(f'postgresql+psycopg2://{os.environ["DB_USERNAME"]}:{os.environ["DB_PASSWORD"]}@localhost/focus_pods_db', echo=True)
+# DATABASE_URL = environ['DATABASE_URL']
+# engine = create_engine(DATABASE_URL, connect_args={'sslmode':'require'})
+engine = create_engine(SQLALCHEMY_DATABASE_URI, connect_args={'sslmode':'require'})
+
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
-
+                                         
 Base = declarative_base()
 Base.query = db_session.query_property()
 

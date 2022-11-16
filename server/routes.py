@@ -1,15 +1,11 @@
-import os
-from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, flash, redirect, session, url_for, render_template, request
+from flask import url_for, render_template, redirect, flash, session, request
 from markupsafe import Markup
 from sqlalchemy import select
-from .lib.models import Room, room_user, User
+from .forms import ContactForm
+from . import start_app
+from .lib.models import db, Room, room_user, User
 
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql+psycopg2://{os.environ["DB_USERNAME"]}:{os.environ["DB_PASSWORD"]}@localhost/focus_pods_db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+app = start_app()
 
 # For testing purposes only, show all users
 @app.route("/users/")
@@ -21,6 +17,18 @@ def get_users():
 def get_rooms():
     rooms = Room.query.all()
     return render_template("rooms.html", rooms=rooms)
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    """Standard `contact` form."""
+    form = ContactForm()
+    if form.validate_on_submit():
+        return redirect(url_for("success"))
+    return render_template(
+        "contact.jinja2",
+        form=form,
+        template="form-template"
+    )
 
 @app.route("/")
 def home():
@@ -110,9 +118,3 @@ def room(room_id):
     user = session.get("name", None)
     room_row = db.session.execute(select(Room).where(Room.id==room_id)).one_or_none()
     return render_template("room.html", room_id=room_id, user=user, room=room_row)
-
-
-if __name__ == "__main__":
-    app.secret_key = "I am a super secret key!"
-    app.config["SESSION_TYPE"] = 'filesystem'
-    app.run(debug=True)
