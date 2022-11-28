@@ -1,16 +1,15 @@
 from os import environ
+import re
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
 
 # from server.config import DATABASE_URL
 # from server.config import SQLALCHEMY_DATABASE_URI
 
-# from dotenv import load_dotenv
-
-# basedir = path.abspath(path.dirname(__file__))
-# load_dotenv(path.join(basedir, ".env"))
 
 DATABASE_URL = environ["DATABASE_URL"]
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 engine = create_engine(DATABASE_URL, connect_args={"sslmode": "require"})
 # engine = create_engine(SQLALCHEMY_DATABASE_URI, connect_args={"sslmode": "require"})
 
