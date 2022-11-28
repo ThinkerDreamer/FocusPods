@@ -6,7 +6,6 @@ kill_timeout = 5
 processes = []
 
 [env]
-[env]
   APP_ENV = "production"
   DB_CONNECTION = "pgsql"
 

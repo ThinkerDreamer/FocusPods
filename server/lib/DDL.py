@@ -1,28 +1,32 @@
+from os import environ
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
+
 # from server.config import DATABASE_URL
-from server.config import SQLALCHEMY_DATABASE_URI
-from dotenv import load_dotenv
-from os import environ, path
-basedir = path.abspath(path.dirname(__file__))
-load_dotenv(path.join(basedir, '.env'))
+# from server.config import SQLALCHEMY_DATABASE_URI
 
-# DATABASE_URL = environ['DATABASE_URL']
-# engine = create_engine(DATABASE_URL, connect_args={'sslmode':'require'})
-engine = create_engine(SQLALCHEMY_DATABASE_URI, connect_args={'sslmode':'require'})
+# from dotenv import load_dotenv
 
-db_session = scoped_session(sessionmaker(autocommit=False,
-                                         autoflush=False,
-                                         bind=engine))
-                                         
+# basedir = path.abspath(path.dirname(__file__))
+# load_dotenv(path.join(basedir, ".env"))
+
+DATABASE_URL = environ["DATABASE_URL"]
+engine = create_engine(DATABASE_URL, connect_args={"sslmode": "require"})
+# engine = create_engine(SQLALCHEMY_DATABASE_URI, connect_args={"sslmode": "require"})
+
+db_session = scoped_session(
+    sessionmaker(autocommit=False, autoflush=False, bind=engine)
+)
 Base = declarative_base()
 Base.query = db_session.query_property()
 
+
 def init_db():
     with engine.begin() as conn:
-        conn.execute(text('DROP TABLE IF EXISTS users CASCADE;'))
-        conn.execute(text('DROP TABLE IF EXISTS rooms CASCADE;'))
-        conn.execute(text('DROP TABLE IF EXISTS rooms_users CASCADE;'))
+        conn.execute(text("DROP TABLE IF EXISTS users CASCADE;"))
+        conn.execute(text("DROP TABLE IF EXISTS rooms CASCADE;"))
+        conn.execute(text("DROP TABLE IF EXISTS rooms_users CASCADE;"))
 
     import server.lib.models
+
     Base.metadata.create_all(bind=engine)
