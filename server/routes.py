@@ -13,10 +13,12 @@ def get_users():
     users = User.query.all()
     return render_template("users.html", users=users)
 
+
 @app.route("/rooms/")
 def get_rooms():
     rooms = Room.query.all()
     return render_template("rooms.html", rooms=rooms)
+
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
@@ -24,15 +26,13 @@ def contact():
     form = ContactForm()
     if form.validate_on_submit():
         return redirect(url_for("success"))
-    return render_template(
-        "contact.jinja2",
-        form=form,
-        template="form-template"
-    )
+    return render_template("contact.jinja2", form=form, template="form-template")
+
 
 @app.route("/")
 def home():
     return render_template("index.html")
+
 
 @app.route("/sign-up/", methods=["POST", "GET"])
 def sign_up():
@@ -40,18 +40,16 @@ def sign_up():
         name = request.form["name"]
         email = request.form["email"]
         password = request.form["password"]
-        user = User(name=name,
-                    email=email,
-                    password=password
-                    )
+        user = User(name=name, email=email, password=password)
         db.session.add(user)
         db.session.commit()
         db.session.close()
-        print(f'{user} added')
-        flash(f'Welcome {name}!')
+        print(f"{user} added")
+        flash(f"Welcome {name}!")
         flash("You have successfully signed up!")
         flash(Markup("Please <a href='/login'>login</a> to continue"))
     return render_template("signup.html")
+
 
 @app.route("/login/", methods=["POST", "GET"])
 def login():
@@ -60,7 +58,9 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
-        user_logging_in = db.session.execute(select(User).where(User.email==email).where(User.password==password)).one_or_none()
+        user_logging_in = db.session.execute(
+            select(User).where(User.email == email).where(User.password == password)
+        ).one_or_none()
         if user_logging_in:
             session["logged_in"] = True
             user_logging_in = dict(user_logging_in)  # Converts from Row type to Dict
@@ -75,11 +75,17 @@ def login():
     else:
         return render_template("login.html")
 
+
 @app.route("/loggedin/", methods=["POST", "GET"])
 def logged_in():
     name = session.get("name", None)
     id = session.get("uid", None)
-    pods_user_is_in = Room.query.join(room_user).join(User).filter((room_user.c.user_id == id) & (room_user.c.room_id == Room.id)).all()
+    pods_user_is_in = (
+        Room.query.join(room_user)
+        .join(User)
+        .filter((room_user.c.user_id == id) & (room_user.c.room_id == Room.id))
+        .all()
+    )
     all_rooms = Room.query.all()
     pod_list = []
     for room in all_rooms:
@@ -90,7 +96,9 @@ def logged_in():
     if request.method == "POST":
         user_id = session["uid"]
         room_name = request.form["room_name"]
-        owner_row = db.session.execute(select(User).where(User.id==user_id)).one_or_none()
+        owner_row = db.session.execute(
+            select(User).where(User.id == user_id)
+        ).one_or_none()
 
         # Create the room without many-to-many user list first
         room = Room(name=room_name, owner=owner_row.User.id)
@@ -105,6 +113,7 @@ def logged_in():
 
     return render_template("loggedin.html", user=name, pods=pod_list)
 
+
 @app.route("/logout/")
 def logout():
     if session["logged_in"] == True:
@@ -113,8 +122,9 @@ def logout():
     else:
         return render_template("not_logged_in.html")
 
+
 @app.route("/pod/<room_id>/")
 def room(room_id):
     user = session.get("name", None)
-    room_row = db.session.execute(select(Room).where(Room.id==room_id)).one_or_none()
+    room_row = db.session.execute(select(Room).where(Room.id == room_id)).one_or_none()
     return render_template("room.html", room_id=room_id, user=user, room=room_row)
