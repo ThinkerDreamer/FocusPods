@@ -17,7 +17,7 @@ class User(Base):
     rooms_in = relationship("Room", secondary="rooms_users", back_populates="users")
 
     def __repr__(self) -> str:
-        return f"User(id={self.id!r}, name={self.name!r}, email={self.email!r})"
+        return f"User(id={self.id}, name={self.name}, email={self.email})"
 
 
 class Room(Base):
@@ -28,7 +28,7 @@ class Room(Base):
     users = relationship("User", secondary="rooms_users", back_populates="rooms_in")
 
     def __repr__(self) -> str:
-        return f"Room(id={self.id!r}, owner={self.owner!r}, name={self.name!r})"
+        return f"Room(id={self.id}, owner={self.owner}, name={self.name})"
 
 
 room_user = Table(
