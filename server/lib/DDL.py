@@ -10,7 +10,7 @@ DATABASE_URL = environ.get("DATABASE_URL", "")
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 # engine = create_engine(DATABASE_URL, connect_args={"sslmode": "require"})
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, echo=True, pool_recycle=1800)
 # engine = create_engine(SQLALCHEMY_DATABASE_URI, connect_args={"sslmode": "require"})
 
 db_session = scoped_session(
