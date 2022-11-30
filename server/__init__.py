@@ -17,5 +17,4 @@ def start_app():
         print("I'm inside the app_context!")
         from . import routes
 
-        print(routes)
         return app
