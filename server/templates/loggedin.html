@@ -2,7 +2,7 @@
 {% block title %}Focus Pods{% endblock %}
 {% block content %}
 <div class="main-content">
-    <h2>Hello, {{ user }}! {{ top_message }}</h2>
+    <h2>Hello, {{ user.title() }}! {{ top_message }}</h2>
     <ul class=flashes>
         {% for message in messages %}
         <li>{{ message }}</li>
