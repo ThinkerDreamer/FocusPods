@@ -2,7 +2,7 @@
 {% block title %}Focus Pods{% endblock %}
 {% block content %}
 <div class="main-content">
-    <h2>Hello, {{ user }}! Welcome to {{ room.Room.name }}!</h2>
+    <h2>Hello, {{ user.title() }}! Welcome to {{ room.Room.name }}!</h2>
     <ul class=flashes>
         {% for message in messages %}
         <li>{{ message }}</li>
@@ -32,5 +32,4 @@
 
     </form> -->
 </div>
-<script type="text/javascript" src={{ url_for("static", filename='loggedin.js' ) }}></script>
 {% endblock %}
