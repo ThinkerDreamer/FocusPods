@@ -43,7 +43,6 @@ def sign_up():
         user = User(name=name, email=email, password=password)
         db.session.add(user)
         db.session.commit()
-        db.session.close()
         print(f"{user} added")
         flash(f"Welcome {name}!")
         flash("You have successfully signed up!")
@@ -108,7 +107,6 @@ def logged_in():
         room.users.append(owner_row.User)
         db.session.commit()
         pod_list.append(room)
-        db.session.close()
         return render_template("createdroom.html", user=name, pods=pod_list)
 
     return render_template("loggedin.html", user=name, pods=pod_list)
