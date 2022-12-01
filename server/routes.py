@@ -91,6 +91,7 @@ def logged_in():
         for pod in pods_user_is_in:
             if room.id == pod.id:
                 pod_list.append(room)
+    top_message = "You are now logged in!"
 
     if request.method == "POST":
         user_id = session["uid"]
@@ -107,9 +108,14 @@ def logged_in():
         room.users.append(owner_row.User)
         db.session.commit()
         pod_list.append(room)
-        return render_template("createdroom.html", user=name, pods=pod_list)
+        top_message = "You have successfully created a pod!"
+        return render_template(
+            "loggedin.html", user=name, pods=pod_list, top_message=top_message
+        )
 
-    return render_template("loggedin.html", user=name, pods=pod_list)
+    return render_template(
+        "loggedin.html", user=name, pods=pod_list, top_message=top_message
+    )
 
 
 @app.route("/logout/")
