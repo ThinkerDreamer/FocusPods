@@ -38,22 +38,19 @@ room_user = Table(
     Column("user_id", ForeignKey("users.id"), primary_key=True),
 )
 
-# How we understand
-# 1 [Fish, Dolphin]
-# 2 [Cat, Dog]
 
-# USERS
-# 1 Fish
-# 2 Dolphin
-# 3 Cat
-# 4 Dog
+class Invites(Base):
+    __tablename__ = "invites"
+    id = Column(Integer, primary_key=True)
+    room_id = Column(Integer, ForeignKey("rooms.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    link_id = Column(String(100), nullable=False)
+    room = relationship("Room", back_populates="invites")
+    user = relationship("User", back_populates="invites")
 
-# ROOMS
-# 1 Fishroom (Owned by Fish)
-# 2 Catfish (Owned by Fish)
-
-# ROOM to USER  (Many-to-many)
-# 1,  1
-# 1,  2
-# 2,  3
-# 2,  4
+    def __repr__(self) -> str:
+        return f"""Invite(id={self.id},
+        room_id={self.room_id},
+        user_id={self.user_id},
+        link_id={self.link_id}
+        )"""
