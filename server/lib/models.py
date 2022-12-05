@@ -45,8 +45,6 @@ class Invites(Base):
     room_id = Column(Integer, ForeignKey("rooms.id"), nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     link_id = Column(String(100), nullable=False)
-    room = relationship("Room", back_populates="invites")
-    user = relationship("User", back_populates="invites")
 
     def __repr__(self) -> str:
         return f"""Invite(id={self.id},
