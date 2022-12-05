@@ -131,4 +131,7 @@ def logout():
 def room(room_id):
     user = session.get("name", None)
     room_row = db.session.execute(select(Room).where(Room.id == room_id)).one_or_none()
-    return render_template("room.html", room_id=room_id, user=user, room=room_row)
+    occupants = room_row.Room.users
+    return render_template(
+        "room.html", room_id=room_id, user=user, room=room_row, occupants=occupants
+    )

@@ -10,9 +10,9 @@
     </ul>
     <p>In this room...</p>
     <ul>
-        {% if room.Room.users.count() > 1 %}
-            {% for user in room.Room.users %}
-            <li>{{ user.name }}</li>
+        {% if occupants|count > 1 %}
+            {% for occupant in occupants %}
+            <li>{{ occupant.name }}</li>
             {% endfor %}
         {% else %}
             <li>There are no other users in this room.</li>
