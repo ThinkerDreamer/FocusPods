@@ -1,9 +1,10 @@
 from flask import url_for, render_template, redirect, flash, session, request
 from markupsafe import Markup
 from sqlalchemy import select
-from .forms import ContactForm
+import uuid
+import json
 from . import start_app
-from .lib.models import db, Room, room_user, User
+from .lib.models import db, Room, room_user, User, Invite
 
 app = start_app()
 
@@ -14,21 +15,14 @@ def get_users():
     return render_template("users.html", users=users)
 
 
+# For testing purposes only, show all rooms
 @app.route("/rooms/")
 def get_rooms():
     rooms = Room.query.all()
     return render_template("rooms.html", rooms=rooms)
 
 
-@app.route("/contact", methods=["GET", "POST"])
-def contact():
-    """Standard `contact` form."""
-    form = ContactForm()
-    if form.validate_on_submit():
-        return redirect(url_for("success"))
-    return render_template("contact.jinja2", form=form, template="form-template")
-
-
+# Home page
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -93,6 +87,7 @@ def logged_in():
                 pod_list.append(room)
     top_message = "You are now logged in!"
 
+    # Create a room
     if request.method == "POST":
         user_id = session["uid"]
         room_name = request.form["room_name"]
@@ -132,6 +127,33 @@ def room(room_id):
     user = session.get("name", None)
     room_row = db.session.execute(select(Room).where(Room.id == room_id)).one_or_none()
     occupants = room_row.Room.users
+    session["room_id"] = room_id
     return render_template(
         "room.html", room_id=room_id, user=user, room=room_row, occupants=occupants
     )
+
+
+@app.route("/invite/", methods=["POST", "GET"])
+def invite():
+    user_id = session.get("uid", None)
+    room_id = session.get("room_id", None)
+    if request.method == "POST":
+        jsonData = request.get_json()
+        print(f"jsonData is {jsonData}")
+        return {"response": "I am the response"}
+        invitation = Invite(user_id=user_id, room_id=room_id, link_id=uuid.uuid4())
+        db.session.add(invitation)
+        db.session.commit()
+        print(f"{invitation} added")
+        # invitation_row = db.session.execute(
+        #     select(Invite)
+        #     .where(Invite.user_id == user_id)
+        #     .where(Invite.room_id == room_id)
+        # ).one_or_none()
+        # Convert from Row type to Dict
+        invitation_dict = dict(invitation)
+        # Grab the name from the Dict
+        invitation_code = invitation_dict["Invite"].link_id
+        return render_template(url_for("invite"), link_id=invitation_code)
+    else:
+        return render_template("invitation.html")
