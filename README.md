@@ -1,4 +1,4 @@
-# FocusPods
+# FocusPods - https://focus-pods.fly.dev/
 
 ![focuspods-small](https://user-images.githubusercontent.com/74881094/212347374-f07b103f-490f-4bd7-b228-6345d3025cf9.png)
 
