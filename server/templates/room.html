@@ -16,8 +16,9 @@
             {% endfor %}
         {% else %}
             <li>There are no other users in this room.</li>
-            <li>Why not invite some friends?</li>
+            <li>Why not <a href={{ url_for("invite", room_id=room.Room.id) }}>invite some friends</a>?</li>
         {% endif %}
     </ul>
 </div>
+
 {% endblock %}
