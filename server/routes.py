@@ -1,7 +1,6 @@
 from flask import url_for, render_template, redirect, flash, session, request
 from markupsafe import Markup
 from sqlalchemy import select
-from .forms import ContactForm
 from . import start_app
 from .lib.models import db, Room, room_user, User
 
@@ -13,20 +12,11 @@ def get_users():
     users = User.query.all()
     return render_template("users.html", users=users)
 
-
+# For testing purposes only, show all rooms
 @app.route("/rooms/")
 def get_rooms():
     rooms = Room.query.all()
     return render_template("rooms.html", rooms=rooms)
-
-
-@app.route("/contact", methods=["GET", "POST"])
-def contact():
-    """Standard `contact` form."""
-    form = ContactForm()
-    if form.validate_on_submit():
-        return redirect(url_for("success"))
-    return render_template("contact.jinja2", form=form, template="form-template")
 
 
 @app.route("/")
