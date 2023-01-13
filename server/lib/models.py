@@ -37,23 +37,3 @@ room_user = Table(
     Column("room_id", ForeignKey("rooms.id"), primary_key=True),
     Column("user_id", ForeignKey("users.id"), primary_key=True),
 )
-
-# How we understand
-# 1 [Fish, Dolphin]
-# 2 [Cat, Dog]
-
-# USERS
-# 1 Fish
-# 2 Dolphin
-# 3 Cat
-# 4 Dog
-
-# ROOMS
-# 1 Fishroom (Owned by Fish)
-# 2 Catfish (Owned by Fish)
-
-# ROOM to USER  (Many-to-many)
-# 1,  1
-# 1,  2
-# 2,  3
-# 2,  4
