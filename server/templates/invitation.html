@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Focus Pods{% endblock %}
+{% block content %}
+<div class="main-content">
+    <h2>Invite people to your pod!</h2>
+    <form action="#" method="post" class="flex-form flex">
+        <ul>
+            <li class="form-item">
+                <input id="genLinkBtn" type="button" value="Generate Invite Link">
+            </li>
+            <li class="form-item">
+                <input id="linkUrl" type="text" value="{{invitation_code}}">
+            </li>
+            <li class="form-item">
+                <input id="copyLinkBtn" type="submit" value="Copy Invite Link">
+            </li>
+        </ul>
+    </form>
+<script type="text/javascript" src={{ url_for("static", filename='invitation.js') }}></script>
+{% endblock %}

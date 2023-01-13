@@ -37,6 +37,35 @@ body {
     font-family: 'Martel Sans', sans-serif;
 }
 
+h1 {
+    padding: 30px 0;
+    margin: 0;
+    text-align: center;
+    font-size: 3rem;
+    line-height: 1;
+    font-family: 'Martel', serif;
+    /* font-family: 'Podkova', serif; */
+
+    background-image: url("peapod.jpg");
+    background-color: #444;
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    max-height: 25vh;
+}
+
+
+h2 {
+    text-align: center;
+    color: var(--light-color);
+    margin: 1rem;
+}
+
+p .bulleted {
+    list-style: circle inside;
+}
+
 a {
     text-decoration: none;
     cursor: pointer;
@@ -89,24 +118,6 @@ https://webdesign.tutsplus.com/tutorials/building-responsive-forms-with-flexbox-
     font-size: 1em;
 }
 
-h1 {
-    padding: 30px 0;
-    margin: 0;
-    text-align: center;
-    font-size: 3rem;
-    line-height: 1;
-    font-family: 'Martel', serif;
-    /* font-family: 'Podkova', serif; */
-
-    background-image: url("peapod.jpg");
-    background-color: #444;
-    background-blend-mode: overlay;
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    max-height: 25vh;
-}
-
 ul {
     color: var(--light-color);
     margin: 1rem 0;
@@ -123,7 +134,8 @@ ul {
 }
 
 button,
-input[type="submit"] {
+input[type="submit"],
+input[type="button"] {
     border-style: none;
     text-align: center;
     padding: 0.5rem 1.5rem;
@@ -137,26 +149,20 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-h2 {
-    text-align: center;
-    color: var(--light-color);
-    margin: 1rem;
-}
-
-p .bulleted {
-    list-style: circle inside;
-}
-
-#makeNewPodEl {
-    cursor: pointer;
-}
-
 #podName,
 #newPodSubmit {
     display: none;
     text-align: center;
     padding: 0.5rem 1.5rem;
     font-size: 1rem;
+}
+
+#linkUrl {
+    display: none;
+}
+
+#copyLinkBtn {
+    display: none;
 }
 
 @media screen and (min-width: 901px) {

@@ -25,6 +25,7 @@ def init_db():
         conn.execute(text("DROP TABLE IF EXISTS users CASCADE;"))
         conn.execute(text("DROP TABLE IF EXISTS rooms CASCADE;"))
         conn.execute(text("DROP TABLE IF EXISTS rooms_users CASCADE;"))
+        conn.execute(text("DROP TABLE IF EXISTS invites CASCADE;"))
 
     import server.lib.models
 

@@ -37,3 +37,17 @@ room_user = Table(
     Column("room_id", ForeignKey("rooms.id"), primary_key=True),
     Column("user_id", ForeignKey("users.id"), primary_key=True),
 )
+
+class Invite(Base):
+    __tablename__ = "invites"
+    id = Column(Integer, primary_key=True)
+    room_id = Column(Integer, ForeignKey("rooms.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    link_id = Column(String(100), nullable=False)
+
+    def __repr__(self) -> str:
+        return f"""Invite(id={self.id},
+        room_id={self.room_id},
+        user_id={self.user_id},
+        link_id={self.link_id}
+        )"""
