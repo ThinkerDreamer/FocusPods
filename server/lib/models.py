@@ -39,7 +39,7 @@ room_user = Table(
 )
 
 
-class Invites(Base):
+class Invite(Base):
     __tablename__ = "invites"
     id = Column(Integer, primary_key=True)
     room_id = Column(Integer, ForeignKey("rooms.id"), nullable=False)
